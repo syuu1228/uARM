@@ -14,7 +14,7 @@
 #include <termios.h>
 
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__FreeBSD__)
 # define off64_t off_t
 # define fseeko64 fseeko
 # define ftello64 ftello
@@ -185,7 +185,7 @@ int main(int argc, char** argv){
 		cfg = old;
 		if(ret) perror("cannot get term attrs");
 
-		#if !defined(_DARWIN_) && !defined(__APPLE__)
+		#if !defined(_DARWIN_) && !defined(__APPLE__) && !defined(__FreeBSD__)
 
 			cfg.c_iflag &=~ (INLCR | INPCK | ISTRIP | IUCLC | IXANY | IXOFF | IXON);
 			cfg.c_oflag &=~ (OPOST | OLCUC | ONLCR | OCRNL | ONOCR | ONLRET);
