@@ -21,4 +21,3 @@ Boolean coRamDeinit(CalloutRam* ram, ArmMem* mem);
 
 
 #endif
-

@@ -30,17 +30,17 @@ typedef void (*writecharF)(int);
 #define BLK_OP_READ	1
 #define BLK_OP_WRITE	2
 
-typedef int (*blockOp)(void* data, UInt32 sec, void* ptr, UInt8 op); 
+typedef int (*blockOp)(void* data, UInt32 sec, void* ptr, UInt8 op);
 
 struct SoC;
 
 typedef void (*SocRamAddF)(struct SoC* soc, void* data);
 
 typedef struct{
-	
+
 	UInt32 (*WordGet)(UInt32 wordAddr);
 	void (*WordSet)(UInt32 wordAddr, UInt32 val);
-	
+
 }RamCallout;
 
 void socRamModeAlloc(struct SoC* soc, void* ignored);
@@ -77,7 +77,7 @@ typedef struct SoC{
 
 	blockOp blkF;
 	void* blkD;
-	
+
 	UInt32 blkDevBuf[BLK_DEV_BLK_SZ / sizeof(UInt32)];
 
 	union{
@@ -100,22 +100,21 @@ typedef struct SoC{
 	Pxa255dma dma;
 	Pxa255dsp dsp;
 	Pxa255lcd lcd;
-	
+
 	UInt8 go	:1;
 	UInt8 calloutMem:1;
-	
+
 	UInt32 romMem[13];		//space for embeddedBoot
-	
+
 #ifdef GDB_SUPPORT
-	
+
 	UInt8 nBkpt, nWtp;
 	UInt32 bkpt[MAX_BKPT];
 	UInt32 wtpA[MAX_WTP];
 	UInt8 wtpS[MAX_WTP];
-	
+
 #endif
 
 }SoC;
 
 #endif
-

@@ -30,7 +30,7 @@ static inline UInt64 u64_sub(UInt64 a, UInt64 b)		{ return a - b;							}
 #else
 
 typedef struct{
-	
+
 	UInt32 hi, lo;
 }UInt64;
 
@@ -60,5 +60,3 @@ UInt64 u64_and(UInt64 a, UInt64 b);
 
 
 #endif
-
-

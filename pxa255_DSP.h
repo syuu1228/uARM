@@ -7,9 +7,9 @@
 
 
 typedef struct{
-	
+
 	UInt64 acc0;
-	
+
 }Pxa255dsp;
 
 

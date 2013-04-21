@@ -6,11 +6,11 @@ Boolean coRamInit(CalloutRam* ram, ArmMem* mem, UInt32 adr, UInt32 sz, ArmMemAcc
 
 	ram->adr = adr;
 	ram->sz = sz;
-	
-	return memRegionAdd(mem, adr, sz, (void*)coF, ram);	
+
+	return memRegionAdd(mem, adr, sz, (void*)coF, ram);
 }
 
 Boolean coRamDeinit(CalloutRam* ram, ArmMem* mem){
-	
+
 	return memRegionDel(mem, ram->adr, ram->sz);
 }

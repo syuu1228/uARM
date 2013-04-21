@@ -3,11 +3,11 @@
 
 #include "mem.h"
 #include "cpu.h"
-#include <stdio.h> 
+#include <stdio.h>
 
 /*
 	PXA255 interrupt controller
-	
+
 	PURRPOSE: raises IRQ, FIQ as needed
 
 */
@@ -45,14 +45,14 @@
 typedef struct{
 
 	ArmCpu* cpu;
-	
+
 	UInt32 ICMR;	//Mask Register
 	UInt32 ICLR;	//Level Register
 	UInt32 ICCR;	//Control Register
 	UInt32 ICPR;	//Pending register
-	
+
 	Boolean wasIrq, wasFiq;
-	
+
 }Pxa255ic;
 
 Boolean pxa255icInit(Pxa255ic* ic, ArmCpu* cpu, ArmMem* physMem);
@@ -61,4 +61,3 @@ void pxa255icInt(Pxa255ic* ic, UInt8 intNum, Boolean raise);		//interrupt caused
 
 
 #endif
-

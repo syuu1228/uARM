@@ -24,7 +24,7 @@ typedef struct{
 
 	UInt32 info;	//addr, masks
 	UInt8 data[ICACHE_LINE_SZ];
-	
+
 }icacheLine;
 
 typedef struct{

@@ -12,7 +12,7 @@
 
 /*
 	PXA255 OS LCD controller
-	
+
 	PURRPOSE: it's nice to have a framebuffer
 
 */
@@ -31,20 +31,20 @@ typedef struct{
 
 	Pxa255ic* ic;
 	ArmMem* mem;
-	
+
 	//registers
 	UInt32 lccr0, lccr1, lccr2, lccr3, fbr0, fbr1, liicr, trgbr, tcr;
 	UInt32 fdadr0, fsadr0, fidr0, ldcmd0;
 	UInt32 fdadr1, fsadr1, fidr1, ldcmd1;
 	UInt16 lcsr;	//yes, 16-bit :)
-	
+
 	//for our use
 	UInt16 intMask;
-	
+
 	UInt8 state		: 6;
 	UInt8 intWasPending	: 1;
 	UInt8 enbChanged	: 1;
-	
+
 #ifdef PXA255_LCD_SUPPORTS_PALLETES
 
 	UInt8 palette[512];
@@ -52,7 +52,7 @@ typedef struct{
 #endif
 
 	UInt32 frameNum;
-	
+
 }Pxa255lcd;
 
 Boolean pxa255lcdInit(Pxa255lcd* lcd, ArmMem* physMem, Pxa255ic* ic);
@@ -60,4 +60,3 @@ void pxa255lcdFrame(Pxa255lcd* lcd);
 
 
 #endif
-

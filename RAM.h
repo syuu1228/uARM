@@ -21,4 +21,3 @@ Boolean ramDeinit(ArmRam* ram, ArmMem* mem);
 
 
 #endif
-

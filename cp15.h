@@ -10,7 +10,7 @@ typedef struct{
 
 	ArmCpu* cpu;
 	ArmMmu* mmu;
-	
+
 	UInt32 control;
 	UInt32 ttb;
 	UInt32 FSR;	//fault sttaus register
@@ -24,4 +24,3 @@ void cp15Deinit(ArmCP15* cp15);
 void cp15SetFaultStatus(ArmCP15* cp15, UInt32 addr, UInt8 faultStatus);
 
 #endif
-

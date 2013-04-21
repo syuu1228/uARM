@@ -21,4 +21,3 @@ UInt32 cvsprintf(printf_write_c writeF, void* writeD, const char* fmtStr, va_lis
 
 
 #endif
-

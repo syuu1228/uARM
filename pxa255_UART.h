@@ -8,7 +8,7 @@
 
 /*
 	PXA255 UARTs
-	
+
 	PXA255 has three. they are identical, but at diff base addresses. this implements one. instanciate more than one of this struct to make all 3 work if needed.
 	PURRPOSE: this is how linux talks to us :)
 
@@ -48,21 +48,21 @@ typedef struct{
 
 	Pxa255ic* ic;
 	UInt32 baseAddr;
-	
+
 	Pxa255UartReadF readF;
 	Pxa255UartWriteF writeF;
 	void* accessFuncsData;
-	
+
 	UartFifo TX, RX;
-	
+
 	UInt16 transmitShift;	//char currently "sending"
 	UInt16 transmitHolding;	//holding register for no-fifo mode
-	
+
 	UInt16 receiveHolding;	//char just received
-	
+
 	UInt8 irq:5;
 	UInt8 cyclesSinceRecv:3;
-	
+
 	UInt8 IER;		//interrupt enable register
 	UInt8 IIR;		//interrupt information register
 	UInt8 FCR;		//fifo control register
@@ -74,9 +74,9 @@ typedef struct{
 	UInt8 DLL;		//divisor latch low
 	UInt8 DLH;		//divior latch high;
 	UInt8 ISR;		//infrared selection register
-	
-	
-	
+
+
+
 }Pxa255uart;
 
 Boolean pxa255uartInit(Pxa255uart* uart, ArmMem* physMem, Pxa255ic* ic, UInt32 baseAddr, UInt8 irq);
@@ -85,4 +85,3 @@ void pxa255uartProcess(Pxa255uart* uart);		//write out data in TX fifo and read 
 void pxa255uartSetFuncs(Pxa255uart* uart, Pxa255UartReadF readF, Pxa255UartWriteF writeF, void* userData);
 
 #endif
-

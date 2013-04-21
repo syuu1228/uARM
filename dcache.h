@@ -23,7 +23,7 @@ typedef struct{
 
 	UInt32 info;	//addr, masks
 	UInt8 data[DCACHE_LINE_SZ];
-	
+
 }dcacheLine;
 
 typedef struct{

@@ -17,12 +17,12 @@ typedef Err (*ArmMmuReadF)(void* userData, UInt32* buf, UInt32 pa);	//read a wor
 #define errMmuPermission		(errMmu + 3)
 
 typedef struct {
-	
+
 	UInt32 pa, va;
 	UInt32 sz;
 	UInt32 ap:2;
 	UInt32 domain:4;
-	
+
 }ArmPrvTlb;
 
 typedef struct ArmMmu{
@@ -61,4 +61,3 @@ void mmuTlbFlush(ArmMmu* mmu);
 
 
 #endif
-

@@ -17,7 +17,7 @@
 typedef struct{
 
 	Pxa255ic* ic;
-	
+
 	UInt32 latches[3];		//what pxa wants to be outputting
 	UInt32 inputs[3];		//what pxa is receiving	[only set by the pxa255gpioSetState() API]
 	UInt32 levels[3];		//what pxa sees (it differs from above for IN pins)
@@ -26,7 +26,7 @@ typedef struct{
 	UInt32 fallDet[3];		//1 = fall detect
 	UInt32 detStatus[3];		//1 = detect happened
 	UInt32 AFRs[6];			//1, 2, 3 = alt funcs
-	
+
 }Pxa255gpio;
 
 #define PXA255_GPIO_LOW			0		//these values make it look like all HiZ, AFR, and nonexistent pins have pullups to those who dumbly assume gpioGEt returns a boolean
@@ -44,4 +44,3 @@ UInt8 pxa255gpioGetState(Pxa255gpio* gpio, UInt8 gpioNum);
 void pxa255gpioSetState(Pxa255gpio* gpio, UInt8 gpioNum, Boolean on);	//we can only set value (and only of input pins), not direction
 
 #endif
-
