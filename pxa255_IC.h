@@ -2,7 +2,7 @@
 #define _PXA255_IC_H_
 
 #include "mem.h"
-#include "cpu.h"
+#include "CPU.h"
 #include <stdio.h>
 
 /*
