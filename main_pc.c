@@ -14,7 +14,15 @@
 #include <termios.h>
 
 
-#define off64_t __off64_t
+#ifdef __APPLE__
+# define off64_t off_t
+# define fseeko64 fseeko
+# define ftello64 ftello
+# define fopen64 fopen
+#else
+# define off64_t __off64_t
+#endif
+
 unsigned char* readFile(const char* name, UInt32* lenP){
 
 	long len = 0;
@@ -177,7 +185,7 @@ int main(int argc, char** argv){
 		cfg = old;
 		if(ret) perror("cannot get term attrs");
 		
-		#ifndef _DARWIN_
+		#if !defined(_DARWIN_) && !defined(__APPLE__)
 		
 			cfg.c_iflag &=~ (INLCR | INPCK | ISTRIP | IUCLC | IXANY | IXOFF | IXON);
 			cfg.c_oflag &=~ (OPOST | OLCUC | ONLCR | OCRNL | ONOCR | ONLRET);
