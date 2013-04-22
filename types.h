@@ -39,7 +39,9 @@ void* emu_alloc(UInt32 size);
 void emu_free(void* ptr);
 void __mem_copy(void* d, const void* s, UInt32 sz);
 
+#if !defined(__OpenBSD__)
 #define memset __memset_disabled__
+#endif
 #define memcpy __memcpy_disabled__
 
 #endif
