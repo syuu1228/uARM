@@ -227,7 +227,7 @@ static void pxa255LcdPrvDma(Pxa255lcd* lcd, void* dest, UInt32 addr, UInt32 len)
 #ifndef EMBEDDED
 	#include <stdio.h>
 
-	static _INLINE_ void pxa255LcdScreenDataPixel(Pxa255lcd* lcd, UInt8* buf){
+	static _INLINE_ void pxa255LcdScreenDataPixel(_UNUSED_ Pxa255lcd* lcd, UInt8* buf){
 
 		UInt8 r, g, b;
 		const UInt32 W = 640;
@@ -286,7 +286,8 @@ static void pxa255LcdPrvDma(Pxa255lcd* lcd, void* dest, UInt32 addr, UInt32 len)
 	static void pxa255LcdScreenDataDma(Pxa255lcd* lcd, UInt32 addr/*PA*/, UInt32 len){
 
 		UInt8 data[4];
-		UInt32 i, j;
+		UInt32 i = 0;
+		UInt32 j = 0;
 		void* ptr;
 	#ifndef PXA255_LCD_SUPPORTS_PALLETES
 		UInt8 val[2];

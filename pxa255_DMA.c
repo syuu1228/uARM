@@ -8,11 +8,11 @@
 #define REG_CSR		4
 
 
-static void pxa255dmaPrvChannelRegWrite(_UNUSED_ Pxa255dma* dma, UInt8 channel, UInt8 reg, UInt32 val){
+static void pxa255dmaPrvChannelRegWrite(_UNUSED_ Pxa255dma* dma, _UNUSED_ UInt8 channel, _UNUSED_ UInt8 reg, UInt32 val){
 
 	if(val){	//we start with zeros, so non-zero writes are all we care about
 
-		const char* regs[] = {"DADDR", "SADDR", "TADDR", "CR", "CSR"};
+	//	const char* regs[] = {"DADDR", "SADDR", "TADDR", "CR", "CSR"};
 
 		err_str("dma: writes unimpl!");
 	//	err_str("PXA255 dma engine: writes unimpl! (writing 0x");

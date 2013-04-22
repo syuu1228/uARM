@@ -143,6 +143,7 @@ static Boolean pMemReadF(void* userData, UInt32* buf, UInt32 pa){	//for DMA engi
 	return memAccess(mem, pa, 4, false, buf);
 }
 
+#if 0
 static void dumpCpuState(ArmCpu* cpu, char* label){
 
 	UInt8 i;
@@ -166,6 +167,7 @@ static void dumpCpuState(ArmCpu* cpu, char* label){
 	err_hex(cpuGetRegExternal(cpu, ARM_REG_NUM_SPSR));
 	err_str("\r\n");
 }
+#endif
 
 static UInt16 socUartPrvRead(void* userData){			//these are special funcs since they always get their own userData - the uart :)
 
@@ -269,8 +271,10 @@ void gdbCmdWait(SoC* soc, unsigned gdbPort, int* ss);
 
 void socRun(SoC* soc, UInt32 gdbPort){
 
+#ifdef EMBEDDED
 	UInt32 prevRtc = 0;
 	UInt32 cyclesCapt = 0;
+#endif
 
 	UInt32 cycles = 0;	//make 64 if you REALLY need it... later
 

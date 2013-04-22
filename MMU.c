@@ -320,6 +320,7 @@ UInt32 mmuDR(ArmMmu* mmu, UInt32 addr){
 	return t;
 }
 
+#if 0
 static void mmuDumpUpdate(UInt32 va, UInt32 pa, UInt32 len, UInt8 dom, UInt8 ap, Boolean c, Boolean b, Boolean valid){
 
 	UInt32 va_end;;
@@ -452,3 +453,4 @@ static void mmuDump(ArmMmu* mmu){
 	}
 	mmuDumpUpdate(0, 0, 0, 0, 0, false, false, false);	//finish things off
 }
+#endif
