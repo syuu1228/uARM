@@ -1,3 +1,6 @@
+# What's this?
+This is simple ARM emulator called uARM, implemented by Dmitry Grinberg.
+(http://dmitry.gr/index.php?r=05.Projects&proj=07.%20Linux%20on%208bit)
 
 # How to compile
 
