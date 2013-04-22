@@ -14,6 +14,10 @@ just run make.
 ```
 $ make
 ```
+Or, if your system installed BSD make, you'll need to run GNU make like this:
+```
+$ gmake
+```
 
 You will get ./uARM as an executable binary.
 
