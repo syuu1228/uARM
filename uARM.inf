@@ -46,4 +46,4 @@
 
 
 [BuildOptions]
-  MSFT:*_*_IA32_CC_FLAGS  = /Oi-
+    GCC:*_*_X64_CC_FLAGS          = -O3 -fomit-frame-pointer -march=core2 -momit-leaf-frame-pointer -D_FILE_OFFSET_BITS=64 -D__USE_LARGEFILE64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
