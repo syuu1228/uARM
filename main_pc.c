@@ -11,7 +11,12 @@
 #include <fcntl.h>
 #include <sys/select.h>
 #include <signal.h>
+#if 0
 #include <termios.h>
+#endif
+
+off_t   _ftello(FILE *);
+#define ftello(fp) _ftello(fp)
 
 unsigned char* readFile(const char* name, UInt32* lenP){
 
@@ -157,8 +162,9 @@ int rootOps(void* userData, UInt32 sector, void* buf, UInt8 op){
 SoC soc;
 
 int main(int argc, char** argv){
-
+#if 0
 	struct termios cfg, old;
+#endif
 	FILE* root = NULL;
 	int gdbPort = 0;
 
@@ -168,6 +174,7 @@ int main(int argc, char** argv){
 	}
 
 	//setup the terminal
+#if 0
 	{
 		int ret;
 
@@ -180,6 +187,7 @@ int main(int argc, char** argv){
 		ret = tcsetattr(0, TCSANOW, &cfg);
 		if(ret) perror("cannot set term attrs");
 	}
+#endif
 
 	root = fopen(argv[1], "r+b");
 	if(!root){
@@ -194,7 +202,9 @@ int main(int argc, char** argv){
 	socRun(&soc, gdbPort);
 
 	fclose(root);
+#if 0
 	tcsetattr(0, TCSANOW, &old);
+#endif
 
 	return 0;
 }
