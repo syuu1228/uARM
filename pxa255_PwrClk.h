@@ -11,7 +11,6 @@ typedef struct{
 	ArmCpu* cpu;
 	UInt32 CCCR, CKEN, OSCR;	//clocks manager regs
 	UInt32 pwrRegs[13];		//we care so little about these, we don't even name them
-	Boolean turbo;
 
 }Pxa255pwrClk;
 

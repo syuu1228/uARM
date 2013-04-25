@@ -58,6 +58,7 @@ extern volatile UInt32 gRtc;	//needed by SoC
 #include "mem.h"
 #include "callout_RAM.h"
 #include "RAM.h"
+#include "cp14.h"
 #include "cp15.h"
 #include "math64.h"
 #include "pxa255_IC.h"
@@ -88,6 +89,7 @@ typedef struct SoC{
 	ArmCpu cpu;
 	ArmMmu mmu;
 	ArmMem mem;
+	ArmCP14 cp14;
 	ArmCP15 cp15;
 	Pxa255ic ic;
 	Pxa255timr timr;

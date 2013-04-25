@@ -4,6 +4,7 @@
 #include "mem.h"
 #include "callout_RAM.h"
 #include "RAM.h"
+#include "cp14.h"
 #include "cp15.h"
 #include "math64.h"
 #include "pxa255_IC.h"
@@ -253,6 +254,7 @@ void socInit(SoC* soc, SocRamAddF raF, void*raD, readcharF rc, writecharF wc, bl
 	__mem_copy(soc->romMem, embedded_boot, sizeof(embedded_boot));
 
 	if(!pxa255icInit(&soc->ic, &soc->cpu, &soc->mem)) ERR_("Cannot init PXA255's interrupt controller");
+	cp14Init(&soc->cp14, &soc->cpu, &soc->ic);
 	if(!pxa255timrInit(&soc->timr, &soc->mem, &soc->ic)) ERR_("Cannot init PXA255's OS timers");
 	if(!pxa255rtcInit(&soc->rtc, &soc->mem, &soc->ic)) ERR_("Cannot init PXA255's RTC");
 	if(!pxa255uartInit(&soc->ffuart, &soc->mem, &soc->ic,PXA255_FFUART_BASE, PXA255_I_FFUART)) ERR_("Cannot init PXA255's FFUART");
@@ -328,6 +330,7 @@ void socRun(SoC* soc, UInt32 gdbPort){
 		}
 	#endif
 
+		cp14Tick(&soc->cp14);
 		if(!(cycles & 0x000007UL)) pxa255timrTick(&soc->timr);
 		if(!(cycles & 0x0000FFUL)) pxa255uartProcess(&soc->ffuart);
 		if(!(cycles & 0x000FFFUL)) pxa255rtcUpdate(&soc->rtc);

@@ -41,7 +41,7 @@ endif
 LDFLAGS = $(LD_FLAGS) -Wall -Wextra
 CCFLAGS = $(CC_FLAGS) -Wall -Wextra
 
-OBJS	= $(EXTRA_OBJS) rt.o math64.o CPU.o MMU.o cp15.o mem.o RAM.o callout_RAM.o SoC.o pxa255_IC.o icache.o pxa255_TIMR.o pxa255_RTC.o pxa255_UART.o pxa255_PwrClk.o pxa255_GPIO.o pxa255_DMA.o pxa255_DSP.o pxa255_LCD.o
+OBJS	= $(EXTRA_OBJS) rt.o math64.o CPU.o MMU.o cp14.o cp15.o mem.o RAM.o callout_RAM.o SoC.o pxa255_IC.o icache.o pxa255_TIMR.o pxa255_RTC.o pxa255_UART.o pxa255_PwrClk.o pxa255_GPIO.o pxa255_DMA.o pxa255_DSP.o pxa255_LCD.o
 
 $(APP): $(OBJS)
 	$(LD) $(LDFLAGS) -o $(APP) $(OBJS)
@@ -64,6 +64,9 @@ dcache.o: dcache.c dcache.h types.h CPU.h
 
 MMU.o: MMU.c MMU.h types.h
 	$(CC) $(CCFLAGS) -o MMU.o -c MMU.c
+
+cp14.o: cp14.c cp14.h CPU.h types.h pxa255_IC.h
+	$(CC) $(CCFLAGS) -o cp14.o -c cp14.c
 
 cp15.o: cp15.c cp15.h CPU.h types.h
 	$(CC) $(CCFLAGS) -o cp15.o -c cp15.c
