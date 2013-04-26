@@ -85,7 +85,7 @@ static Boolean cp14prvCoprocRegXferFunc(struct ArmCpu* cpu, void* userData, Bool
 					//	err_str("\r\n");
 					}
 				}
-				break;
+				goto success;
 
 			case 7:	// PWRMODE
 				if(read) val = cp14->turbo ? 1 : 0;
