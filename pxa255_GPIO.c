@@ -96,7 +96,7 @@ static Boolean pxa255gpioPrvMemAccessF(void* userData, UInt32 pa, UInt8 size, Bo
 			case 24:
 			case 25:
 			case 26:
-				val = gpio->AFRs[pa - 21];
+				gpio->AFRs[pa - 21] = val;
 				goto recalc;
 		}
 
