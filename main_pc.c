@@ -143,13 +143,53 @@ int rootOps(void* userData, UInt32 sector, void* buf, UInt8 op){
 
 			i = fseeko(root, (off_t)sector * (off_t)BLK_DEV_BLK_SZ, SEEK_SET);
 			if(i) return false;
+#if BYTE_ORDER == LITTLE_ENDIAN
 			return fread(buf, 1, BLK_DEV_BLK_SZ, root) == BLK_DEV_BLK_SZ;
+#endif /* BYTE_ORDER == LITTLE_ENDIAN */
+#if BYTE_ORDER == BIG_ENDIAN
+			{
+				UInt32 *ptr;
+				ptr = malloc(BLK_DEV_BLK_SZ);
+				if (ptr == NULL) {
+					return (false);
+				}
+				if (fread(ptr, 1, BLK_DEV_BLK_SZ, root) != BLK_DEV_BLK_SZ) {
+					free(ptr);
+					return (false);
+				}
+				for (i = 0 ; i < (int)(BLK_DEV_BLK_SZ / sizeof(ptr[0])) ; i++) {
+					((UInt32 *)buf)[i] = le32toh(ptr[i]);
+				}
+				free(ptr);
+				return (true);
+			}
+#endif /* BYTE_ORDER == BIG_ENDIAN */
 
 		case BLK_OP_WRITE:
 
 			i = fseeko(root, (off_t)sector * (off_t)BLK_DEV_BLK_SZ, SEEK_SET);
 			if(i) return false;
+#if BYTE_ORDER == LITTLE_ENDIAN
 			return fwrite(buf, 1, BLK_DEV_BLK_SZ, root) == BLK_DEV_BLK_SZ;
+#endif /* BYTE_ORDER == LITTLE_ENDIAN */
+#if BYTE_ORDER == BIG_ENDIAN
+			{
+				UInt32 *ptr;
+				ptr = malloc(BLK_DEV_BLK_SZ);
+				if (ptr == NULL) {
+					return (false);
+				}
+				for (i = 0 ; i < (int)(BLK_DEV_BLK_SZ / sizeof(ptr[0])) ; i++) {
+					ptr[i] = htole32(((UInt32 *)buf)[i]);
+				}
+				if (fwrite(ptr, 1, BLK_DEV_BLK_SZ, root) != BLK_DEV_BLK_SZ) {
+					free(ptr);
+					return (false);
+				}
+				free(ptr);
+				return (true);
+			}
+#endif /* BYTE_ORDER == BIG_ENDIAN */
 	}
 	return 0;
 }

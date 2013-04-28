@@ -89,7 +89,17 @@ Boolean _icache_fetch_func(icache* ic, UInt32 va, UInt8 sz, Boolean priviledged,
 				*(UInt32*)buf = *(UInt32*)(lines[j].data + off);
 			}
 			else if(sz == 2){
+#if BYTE_ORDER == LITTLE_ENDIAN
 				*(UInt16*)buf = *(UInt16*)(lines[j].data + off);
+#endif /* BYTE_ORDER == LITTLE_ENDIAN */
+#if BYTE_ORDER == BIG_ENDIAN
+				if ((off % 4) == 0) {
+					*(UInt16*)buf = *(UInt16*)(lines[j].data + off + 2);
+				}
+				else {
+					*(UInt16*)buf = *(UInt16*)(lines[j].data + off - 2);
+				}
+#endif /* BYTE_ORDER == BIG_ENDIAN */
 			}
 			else __mem_copy(buf, lines[j].data + off, sz);
 			return priviledged || !(lines[j].info & ICACHE_PRIV_MASK);
@@ -111,7 +121,17 @@ Boolean _icache_fetch_func(icache* ic, UInt32 va, UInt8 sz, Boolean priviledged,
 		*(UInt32*)buf = *(UInt32*)(line->data + off);
 	}
 	else if(sz == 2){
+#if BYTE_ORDER == LITTLE_ENDIAN
 		*(UInt16*)buf = *(UInt16*)(line->data + off);
+#endif /* BYTE_ORDER == LITTLE_ENDIAN */
+#if BYTE_ORDER == BIG_ENDIAN
+		if ((off % 4) == 0) {
+			*(UInt16*)buf = *(UInt16*)(line->data + off + 2);
+		}
+		else {
+			*(UInt16*)buf = *(UInt16*)(line->data + off - 2);
+		}
+#endif /* BYTE_ORDER == BIG_ENDIAN */
 	}
 	else __mem_copy(buf, line->data + off, sz);
 	return true;
