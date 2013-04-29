@@ -48,6 +48,7 @@ void socRamModeCallout(struct SoC* soc, void* callout);	//rally pointer to RamCa
 
 void socInit(struct SoC* soc, SocRamAddF raF, void* raD, readcharF rc, writecharF wc, blockOp blkF, void* blkD);
 void socRun(struct SoC* soc, UInt32 gdbPort);
+void socStep(struct SoC* soc);
 
 
 
@@ -80,6 +81,8 @@ typedef struct SoC{
 	void* blkD;
 
 	UInt32 blkDevBuf[BLK_DEV_BLK_SZ / sizeof(UInt32)];
+
+ UInt32 cycles;
 
 	union{
 		ArmRam RAM;

@@ -226,6 +226,8 @@ void socInit(SoC* soc, SocRamAddF raF, void*raD, readcharF rc, writecharF wc, bl
 
 	soc->go = true;
 
+ soc->cycles = 0u;
+
 	e = cpuInit(&soc->cpu, ROM_BASE, vMemF, emulErrF, hyperF, &setFaultAdrF);
 	if(e){
 		err_str("Failed to init CPU: ");
@@ -270,6 +272,18 @@ void socInit(SoC* soc, SocRamAddF raF, void*raD, readcharF rc, writecharF wc, bl
 }
 
 void gdbCmdWait(SoC* soc, unsigned gdbPort, int* ss);
+
+void socStep(SoC* soc){
+	if(soc->go){
+		soc->cycles++;
+		cp14Tick(&soc->cp14);
+		if(!(soc->cycles & 0x000007UL)) pxa255timrTick(&soc->timr);
+		if(!(soc->cycles & 0x0000FFUL)) pxa255uartProcess(&soc->ffuart);
+		if(!(soc->cycles & 0x000FFFUL)) pxa255rtcUpdate(&soc->rtc);
+		if(!(soc->cycles & 0x01FFFFUL)) pxa255lcdFrame(&soc->lcd);
+		cpuCycle(&soc->cpu);
+	}
+}
 
 void socRun(SoC* soc, UInt32 gdbPort){
 
@@ -355,7 +369,6 @@ void socRun(SoC* soc, UInt32 gdbPort){
 #ifdef GDB_SUPPORT
 
 
-
 	#include <sys/socket.h>
 	#include <sys/time.h>
 	#include <sys/types.h>
@@ -366,8 +379,6 @@ void socRun(SoC* soc, UInt32 gdbPort){
 	#include <netinet/in.h>
 	#include <string.h>
 	#include <stdio.h>
-
-
 
 	static int socdBkptDel(SoC* soc, UInt32 addr, UInt8 sz){
 
@@ -628,7 +639,6 @@ void socRun(SoC* soc, UInt32 gdbPort){
 	}
 
 	void gdbCmdWait(SoC* soc, unsigned gdbPort, int* ss){
-
 		ArmCpu* cpu = &soc->cpu;
 		static int running = 0;
 		static int sock = -1;
