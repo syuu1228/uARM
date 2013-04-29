@@ -23,9 +23,9 @@
 
 static void cp14PrvRaiseLowerInts(ArmCP14* cp14){
 
-	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_PMN0|PMNC_FLAG_PMN0)) != 0);
-	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_PMN1|PMNC_FLAG_PMN1)) != 0);
-	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_CCNT|PMNC_FLAG_CCNT)) != 0);
+	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_PMN0|PMNC_FLAG_PMN0)) == (PMNC_INTEN_PMN0|PMNC_FLAG_PMN0));
+	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_PMN1|PMNC_FLAG_PMN1)) == (PMNC_INTEN_PMN1|PMNC_FLAG_PMN1));
+	pxa255icInt(cp14->ic, PXA255_I_PMU, (cp14->PMNC & (PMNC_INTEN_CCNT|PMNC_FLAG_CCNT)) == (PMNC_INTEN_CCNT|PMNC_FLAG_CCNT));
 }
 
 static Boolean cp14prvCoprocRegXferFunc(struct ArmCpu* cpu, void* userData, Boolean two, Boolean read, UInt8 op1, UInt8 Rx, UInt8 CRn, UInt8 CRm, UInt8 op2){
