@@ -1,6 +1,7 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
+#include <sys/types.h>
 #include <stdint.h>
 
 typedef uint32_t UInt32;
